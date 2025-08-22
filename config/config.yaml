@@ -1,0 +1,80 @@
+# Solana DEX交易编码服务配置文件
+
+# HTTP服务器配置
+server:
+  port: 8080
+  host: "0.0.0.0"
+  mode: "debug"  # debug, release, test
+  read_timeout: 30s
+  write_timeout: 30s
+
+# Solana网络配置
+solana:
+  rpc_url: "https://api.mainnet-beta.solana.com"
+  ws_url: "wss://api.mainnet-beta.solana.com"
+  network: "mainnet"  # mainnet, devnet, testnet
+  timeout: 30s
+  retry_count: 3
+  commitment: "confirmed"  # processed, confirmed, finalized
+
+# DEX配置列表
+dexes:
+  # Raydium DEX配置
+  - name: "raydium"
+    program_id: "675kPX9MHTjS2zt1qfr1NYHuzeLXfQM9H24wFSUt1Mp8"
+    router_address: "routeUGWgWzqBWFcrCfv8tritsqukccJPu3q5GPP3xS"
+    endpoints:
+      swap: "https://api.raydium.io/v2/sdk/swap"
+      pools: "https://api.raydium.io/v2/sdk/liquidity/mainnet.json"
+      quote: "https://quote-api.jup.ag/v6/quote"
+    enabled: true
+    timeout: 30s
+    retry_count: 3
+    created_at: 2024-01-01T00:00:00Z
+    updated_at: 2024-01-01T00:00:00Z
+
+  # Pumpfun DEX配置
+  - name: "pumpfun"
+    program_id: "6EF8rrecthR5Dkzon8Nwu78hRvfCKubJ14M5uBEwF6P"
+    router_address: "39azUYFWPz3VHgKCf3VChUwbpURdCHRxjWVowf5jUJjg"
+    endpoints:
+      api: "https://pumpportal.fun/api"
+      trade: "https://pumpportal.fun/api/trade"
+      quote: "https://pumpportal.fun/api/quote"
+    enabled: true
+    timeout: 30s
+    retry_count: 3
+    created_at: 2024-01-01T00:00:00Z
+    updated_at: 2024-01-01T00:00:00Z
+
+  # PumpSwap DEX配置
+  - name: "pumpswap"
+    program_id: "PSwapMdSai8tjrEXcxFeQth87xC4rRsa4VA5mhGhXkP"
+    router_address: "PSwapRouterV1111111111111111111111111111111"
+    endpoints:
+      api: "https://api.pumpswap.com/v1"
+      swap: "https://api.pumpswap.com/v1/swap"
+      quote: "https://api.pumpswap.com/v1/quote"
+    enabled: true
+    timeout: 30s
+    retry_count: 3
+    created_at: 2024-01-01T00:00:00Z
+    updated_at: 2024-01-01T00:00:00Z
+
+# 日志配置
+logging:
+  level: "info"  # debug, info, warn, error
+  format: "json"  # json, text
+  output: "stdout"  # stdout, file
+  file_path: "logs/app.log"
+  max_size: 100  # MB
+  max_backups: 5
+  max_age: 30  # days
+
+# 安全配置
+security:
+  enable_https: false
+  cert_file: ""
+  key_file: ""
+  rate_limit_rps: 100
+  max_request_size: 1048576  # 1MB in bytes
